@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Things – Merchant Onboarding (Prototype)"
+description = "A responsive prototype showing how a locally owned shop can turn a menu into a reviewed and published Things storefront. Menu extraction is simulated with prepared sample results."
+version = "1.0.0"
+id = "artifacts/things-onboarding"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19106
+
+[services.development]
+run = "pnpm --filter @workspace/things-onboarding run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/things-onboarding", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/things-onboarding/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19106"
+BASE_PATH = "/"
